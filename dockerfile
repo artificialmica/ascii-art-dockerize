@@ -1,17 +1,17 @@
+# Use the official Go image to build the application
 FROM golang:1.20-alpine AS build
 
-WORKDIR /app 
+# Set the Current Working Directory inside the container
+WORKDIR /app
 
+# Copy go.mod and go.sum to download dependencies
+COPY go.mod ./
+RUN go mod download
 
-#COPY go.mod .
-#COPY main.go .
-#this is how you can make a comment btw
-
-RUN go mod download.
-
+# Copy the entire project source code into the container
 COPY . .
 
-# Build the Go app and output a binary called 'app'
+# Build the Go app
 RUN go build -o app .
 
 # Minimal final stage to keep the container small
@@ -23,8 +23,11 @@ WORKDIR /root/
 # Copy the binary from the builder stage
 COPY --from=build /app/app .
 
+# Copy the static folder into the final image
+COPY --from=build /app/static ./static
+
 # Expose port 8080 for the web server
-EXPOSE 8088
+EXPOSE 8080
 
 # Run the application
 CMD ["./app"]
