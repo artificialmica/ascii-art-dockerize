@@ -2,9 +2,8 @@ Description:
 The user types an input and selects an option of the banner , generating the selected ascii code characters in a separate page. Also, we creates a css file that would make the page presentable.
 
 Authors: 
-Khadijah Abdulla 
+Khadijah Abdulla,
 Maryam Budawas
-Sana Jamshaid
 
 Usage: how to run 
 1) go run main.go in the terminal
@@ -20,3 +19,6 @@ Implementation Details: algorithm
    4) the second handler function will be responsible for generating the ascii art, and also handling the errors
    5) in the second handler, we call three functions - validate, convert and generate
    6) The three functions above are responsible for processing the input, making sure the selected option is available and converting the string to an ascii art in its respective location
+
+Dockerize:
+ 1) We created a docker file containing metadata (as required)
