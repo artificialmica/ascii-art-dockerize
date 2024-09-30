@@ -4,7 +4,6 @@ The user types an input and selects an option of the banner , generating the sel
 Authors: 
 Khadijah Abdulla 
 Maryam Budawas
-Sana Jamshaid
 
 Usage: how to run 
 1) go run main.go in the terminal
