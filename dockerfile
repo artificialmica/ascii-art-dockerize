@@ -3,7 +3,7 @@ FROM golang:1.23-alpine
 
 #Our metadata <3
 LABEL maintainer="mariambudawas15@gmail.com" \
-    maintainer2="khadijahasan198@gmail.com" \
+      maintainer2="khadijahasan198@gmail.com" \
       version="1.0" \
       description="This is a simple Go web server application."
 # Set the working directory inside the container
