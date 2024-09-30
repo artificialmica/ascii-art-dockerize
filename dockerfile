@@ -1,5 +1,5 @@
 # Use the official Go image to build and run the application
-FROM golang:1.23-alpine
+FROM golang:1.23
 
 #Our metadata <3
 LABEL maintainer="mariambudawas15@gmail.com" \
