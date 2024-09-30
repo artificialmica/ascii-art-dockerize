@@ -2,7 +2,7 @@ Description:
 The user types an input and selects an option of the banner , generating the selected ascii code characters in a separate page. Also, we creates a css file that would make the page presentable.
 
 Authors: 
-Khadijah Abdulla. 
+Khadijah Abdulla,
 Maryam Budawas
 
 Usage: how to run 
