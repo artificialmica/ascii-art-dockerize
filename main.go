@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
-	"os"
 	"strings"
 	web "web/func"
 )
@@ -14,7 +14,7 @@ func main() {
 	http.HandleFunc("/", homeHandle)
 	http.HandleFunc("/generate", gHandler)
 
-	//serve the file
+	//serve the file, no need :)
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
@@ -24,29 +24,42 @@ func main() {
 
 func homeHandle(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		http.NotFound(w, r)
-		return
-	}
-	//check the method
-	if r.Method != http.MethodGet {
-		http.Error(w, "Invalid Request Method", http.StatusMethodNotAllowed)
+		web.ErrorDisplay(w, http.StatusNotFound, "Page not found")
 		return
 	}
 
-	html, err := os.ReadFile("static/index.html")
+	//don't use read
+	//html, err := os.ReadFile("static/index.html")
 
+	// if err != nil {
+	// 	http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
+	// 	return
+	// }
+
+	// fmt.Fprintf(w, "%s", html)
+
+	templ, err := template.ParseFiles("static/index.html")
 	if err != nil {
-		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
+		web.ErrorDisplay(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 
-	fmt.Fprintf(w, "%s", html)
+	err = templ.Execute(w, nil)
+	if err != nil {
+		web.ErrorDisplay(w, http.StatusInternalServerError, err.Error())
+		return
+	}
 }
 
 func gHandler(w http.ResponseWriter, r *http.Request) {
 	//check that the method is post ONLY
 	if r.Method != http.MethodPost {
-		http.Error(w, "Invalid Request Method", http.StatusMethodNotAllowed)
+		web.ErrorDisplay(w, http.StatusInternalServerError, "Invalid Request Method")
+		return
+	}
+
+	if r.URL.Path != "/generate" {
+		web.ErrorDisplay(w, http.StatusNotFound, "Page not found")
 		return
 	}
 
@@ -58,7 +71,7 @@ func gHandler(w http.ResponseWriter, r *http.Request) {
 
 	wordTofind, file, err := web.Validation(wordTofind, banner, w)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		web.ErrorDisplay(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -67,7 +80,7 @@ func gHandler(w http.ResponseWriter, r *http.Request) {
 
 	fileArray, err := web.Convert(file)
 	if err != nil {
-		http.Error(w, "500 Internal Server Error", http.StatusInternalServerError)
+		web.ErrorDisplay(w, http.StatusInternalServerError, err.Error())
 		return
 	}
 	splitstring := strings.Split(wordTofind, "\r\n")
@@ -79,7 +92,7 @@ func gHandler(w http.ResponseWriter, r *http.Request) {
 		} else {
 			asciiArtWeb, err := web.GenerateAscii(word, fileArray)
 			if err != nil {
-				http.Error(w, err.Error(), http.StatusBadRequest)
+				web.ErrorDisplay(w, http.StatusBadRequest, err.Error())
 				return
 			}
 			result += asciiArtWeb
@@ -89,5 +102,17 @@ func gHandler(w http.ResponseWriter, r *http.Request) {
 	// Debug output
 	fmt.Printf("Generated ASCII art:\n%s\n", result)
 
-	fmt.Fprintf(w, "%s", result)
+	//create the temp
+	templ, err := template.ParseFiles("static/index.html")
+	if err != nil {
+		web.ErrorDisplay(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	//print the result on the same page of index.html
+	err = templ.Execute(w, result)
+	if err != nil {
+		web.ErrorDisplay(w, http.StatusInternalServerError, err.Error())
+		return
+	}
 }

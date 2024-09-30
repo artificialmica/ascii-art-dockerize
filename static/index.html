@@ -11,25 +11,31 @@
     <main>
         <h1>Ascii Art Generator</h1>
     </main>
-    <div>
         <form action="/generate" method="post">
             <textarea type="text" name="inputText" placeholder="Enter your text here" required></textarea>
+            
             <div class="radio-group">
                 <div class="radio-option">
                     <input type="radio" name="banner" value="shadow" required>
                     <label for="shadow">Shadow</label>
+                
                 </div>
+                
                 <div class="radio-option">
                     <input type="radio" name="banner" value="standard" required>
                     <label for="standard">Standard</label>
                 </div>
+                
                 <div class="radio-option">
                     <input type="radio" name="banner" value="thinkertoy" required>
                     <label for="thinkertoy">ThinkerToy</label>
                 </div>
             </div>
-            <input type="submit" id="btn" value="Process">
+
+            <button>Process</button>
         </form>
-    </div>
+        <div class="output">
+            <pre>{{.}}</pre>
+        </div>
 </body>
 </html>
