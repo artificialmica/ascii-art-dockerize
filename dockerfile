@@ -1,6 +1,10 @@
 # Use the official Go image to build and run the application
 FROM golang:1.23-alpine
 
+##our metadata
+LABEL maintainer="mariambudawas15@gmail.com" \
+      version="1.0" \
+      description="This is a simple Go web server application."
 # Set the working directory inside the container
 WORKDIR /app
 
