@@ -1,11 +1,11 @@
 # Use the official Go image to build and run the application
-FROM golang:1.23-alpine
+FROM golang:1.23
 
 #Our metadata <3
 LABEL maintainer="mariambudawas15@gmail.com" \
       maintainer2="khadijahasan198@gmail.com" \
       version="1.0" \
-      description="This is a simple Go web server application."
+      description="A containerized Go server that generates ASCII art from input text using various font styles."
 # Set the working directory inside the container
 WORKDIR /app
 
