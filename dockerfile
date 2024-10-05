@@ -5,6 +5,7 @@ FROM golang:1.23
 LABEL maintainer="mariambudawas15@gmail.com" \
         maintainer2="khadijahasan198@gmail.com" \
       version="1.0" \
+<<<<<<< HEAD
       description="This is a simple Go web server application."
 
 # Install bash using apk (Alpine's package manager)
@@ -12,6 +13,10 @@ RUN apk add --no-cache bash
 
 
  # Set the working directory inside the container
+=======
+      description="A containerized Go server that generates ASCII art from input text using various font styles."
+# Set the working directory inside the container
+>>>>>>> b5492cac25dc0f26d3110bff5a42eb8287221989
 WORKDIR /app
 
 # Copy go.mod and go.sum, then download dependencies
