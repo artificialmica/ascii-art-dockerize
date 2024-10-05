@@ -1,12 +1,17 @@
 # Use the official Go image to build and run the application
-FROM golang:1.23
+FROM golang:1.23-alpine
 
 #Our metadata <3
 LABEL maintainer="mariambudawas15@gmail.com" \
-      maintainer2="khadijahasan198@gmail.com" \
+        maintainer2="khadijahasan198@gmail.com" \
       version="1.0" \
       description="This is a simple Go web server application."
-# Set the working directory inside the container
+
+# Install bash using apk (Alpine's package manager)
+RUN apk add --no-cache bash
+
+
+ # Set the working directory inside the container
 WORKDIR /app
 
 # Copy go.mod and go.sum, then download dependencies
