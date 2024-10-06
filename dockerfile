@@ -12,7 +12,8 @@ WORKDIR /app
 
 # Copy go.mod and go.sum, then download dependencies
 COPY go.mod ./
-RUN go mod download
+
+#RUN go mod download
 
 # Copy the entire project source code into the container
 COPY . .
