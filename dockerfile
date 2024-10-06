@@ -6,6 +6,7 @@ LABEL maintainer="mariambudawas15@gmail.com" \
       maintainer2="khadijahasan198@gmail.com" \
       version="1.0" \
       description="A containerized Go server that generates ASCII art from input text using various font styles."
+
 # Set the working directory inside the container
 WORKDIR /app
 

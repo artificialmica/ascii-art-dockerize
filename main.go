@@ -14,7 +14,7 @@ func main() {
 	http.HandleFunc("/", homeHandle)
 	http.HandleFunc("/generate", gHandler)
 
-	//serve the file, no need :)
+	//serve the file, need :()
 	fs := http.FileServer(http.Dir("static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
